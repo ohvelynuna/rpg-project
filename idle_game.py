@@ -243,7 +243,7 @@ class Player:
         time.sleep(1)
         print("Promotion!")
         time.sleep(1)
-        print(f"You notice that {badge_dict.get(self.level-1)} badge on your body slowly fades away.")
+        print(f"You notice that the {badge_dict.get(self.level-1)} badge on your body slowly fades away.")
         time.sleep(3)
         print("The stone tablet emits a noise.")
         time.sleep(3)
@@ -300,7 +300,7 @@ def main_test():
                 print("Please enter an integer.")
             for i in range(afk):
                 try:
-                    print("\n Ctrl+C to pause afk grinding... \n")
+                    print("\nAFK grinding in progress...\nCtrl+C to pause afk grinding... \n")
                     time.sleep(1)
                     print(f"Round {i}/{afk} of AFK grinding", "(" + str(round(i/afk*100)) + "%)")
                     m1 = Monster(monster_names.get(random.randint(0, p1.level) % 49), (p1.hp) + 10)
