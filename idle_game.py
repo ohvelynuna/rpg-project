@@ -1,12 +1,16 @@
 
 import random
 import time
+import pandas as pd
 from collections import defaultdict
+import pathlib
+csvfile = pathlib.Path('leaderboard.csv')
 # Set variables
+user_auto_save_setting = 20
+badge_dict = defaultdict(lambda: 'GodLike - Highest Rank in Current Patch')
+monster_names = defaultdict(lambda: 'Zelca - creator of the game yoyoyoyoyo THANK YOU FOR PLAYING AND LEVELING UP SO FAR')
 
-badge_dict = defaultdict(lambda a = 'GodLike - Highest Rank in Current Patch': a)
-monster_names = defaultdict(lambda a = 'Zelca - creator of the game yoyoyoyoyo THANK YOU FOR PLAYING AND LEVELING UP SO FAR': a)
-
+save_count = 0
 level = 0
 hp = 0
 mp = 0
@@ -266,9 +270,19 @@ class Monster:
 
 class Fighting:
     def fighting_rounds(afk, choice):
+            global save_count
+            auto_save_count = 0 
             word = ["", "\nCtrl+C to cancel fight... \n", "\nAFK grinding in progress...\nCtrl+C to pause afk grinding... \n"]
             for i in range(afk):
                 try:
+                    print(f"\n{user_auto_save_setting - auto_save_count} more rounds till next auto save.")
+                    auto_save_count += 1
+                    if auto_save_count >= user_auto_save_setting:
+                        print('auto saving...')
+                        save_count += 1
+                        print(f"{save_count} save count is")
+                        Save.auto_save()
+                        auto_save_count = 0
                     print(f"{word[choice-1]}")
                     time.sleep(1)
                     if choice == 3:
@@ -282,7 +296,7 @@ class Fighting:
                     print(f"Monster found — {m1.name} Lv {p1.level}! \nPreparing for battle...")
                     time.sleep(2)
                     print(f'{m1.name} Lv {p1.level}')
-                    print((u'█'*percentagehealth).ljust(50, ' ') + '| ' + f'{m1.hp}/{fullhp}')
+                    print((u'█'*percentagehealth).ljust(50, ' ') + '| ' + f"HP: {m1.hp}/{fullhp}")
                     time.sleep(2)
                     fighting = True
                     while fighting:
@@ -290,7 +304,7 @@ class Fighting:
                         m1.hp = m1.hp - x if m1.hp - x > 0 else 0
                         percentagehealth =  int(m1.hp/fullhp*50 // 1)
                         print(f'{m1.name} Lv {p1.level}')
-                        print((u'█'*percentagehealth).ljust(50, ' ') + '| ' + f'{m1.hp}/{fullhp}')
+                        print((u'█'*percentagehealth).ljust(50, ' ') + '| ' + f"HP: {m1.hp}/{fullhp}")
                         if x > (p1.level + p1.level + p1.hp * 0.5 + 10) // 2 * 1.5:
                             print(f"CRITICAL STRIKE!!! You DEMOLISHED {m1.name} with {x} DAMAGE!!!!!! \nBRAVOOOOOOOOO")
                             print(f"{m1.name} now has {m1.hp} health points remaining!!")
@@ -318,12 +332,75 @@ class Fighting:
                 except KeyboardInterrupt:
                     print("pausing AFK grinding...")
                     break
+class Save:
+    def save_score():
+        print(save_count)
+        dict_player_stat = {
+            'Player' : [p1.name],
+            'Player_Level': [int(p1.level)],
+            'Player_HP': [int(p1.hp)],
+            'Player_Exp': [int(p1.exp)],
+            'Badge': [badge_dict.get(p1.level)]
+            }
+        df = pd.DataFrame(data=dict_player_stat)
+        if save_count == 1:
+            df.to_csv("leaderboard.csv", mode='a', header = not csvfile.exists(), index = False)
+            print(df.index)
+            print(df['Player'])
+        else:
+            print(df.columns)
+            df_new = pd.read_csv('leaderboard.csv')
+            if df_new.loc[df_new.index[-1], 'Player'] == p1.name:
+                df_new.loc[df_new.index[-1], ['Player_Level', 'Player_HP', 'Player_Exp', 'Badge']] = [p1.level, p1.hp, p1.exp, badge_dict.get(p1.level)]
+                df_new.to_csv("leaderboard.csv", header = True, index = False)
+            print("save count is more than 1")
+        print("Player score saved")
+        print("showing leaderboard...")
+        leaderboard()
+    def auto_save():
+        dict_player_stat = {
+            'Player' : [p1.name],
+            'Player_Level': [int(p1.level)],
+            'Player_HP': [int(p1.hp)],
+            'Player_Exp': [int(p1.exp)],
+            'Badge': [badge_dict.get(p1.level)]
+            }
+        df = pd.DataFrame(data=dict_player_stat)
+        if save_count == 1:
+            df.to_csv("leaderboard.csv", mode='a', header = not csvfile.exists(), index = False)
+            print("Player score saved")
+        else:
+            df_new = pd.read_csv('leaderboard.csv')
+            if df_new.loc[df_new.index[-1], 'Player'] == p1.name:
+                df_new.loc[df_new.index[-1], ['Player_Level', 'Player_HP', 'Player_Exp', 'Badge']] = [p1.level, p1.hp, p1.exp, badge_dict.get(p1.level)]
+                df_new.to_csv("leaderboard.csv", header = True, index = False)
+            print("Player score saved")
+
+def leaderboard():
+    if csvfile.exists():
+        df = pd.read_csv("leaderboard.csv")
+        df_display = df.sort_values(by = ['Player_Level', 'Player_Exp'], ascending = [False, False], inplace = False)
+        print(df_display.to_string(index=False))
+    else:
+        print("Empty leaderboard")
+
+def user_auto_save():
+    global user_auto_save_setting
+    print(f"Current autosave rounds (default is 20): {user_auto_save_setting}")
+    while True:
+        try:
+            user_auto_save_setting = input("Update your user_auto_save_setting: ")
+            user_auto_save_setting = int(user_auto_save_setting)
+            break
+        except:
+            print("please enter integers only")
 
 def main_test():
+    global save_count
     run = True
     while run:
         try:
-            menu = int(input("1: Check player status\n2: Battle monster\n3: Unleash hands-free ultimate infinite AFK grinding> "))
+            menu = int(input("1: Check player status\n2: Battle monster\n3: Unleash hands-free ultimate infinite AFK grinding\n4: Save your level to leaderboard\n5: Show leaderboard (ATTENTION: This won't save your score)\n6: Update autosave setting\n> "))
         except ValueError:
             print("Please enter an integer.")
             continue
@@ -334,18 +411,26 @@ def main_test():
         elif menu == 3:
           while True:
             try:
-              rounds = int(input("Please enter the number of rounds for infinite AFK grinding (1-inifinity)"))
+              rounds = int(input("Please enter the number of rounds for infinite AFK grinding (1-inifinity): "))
               break
             except ValueError:
               continue
           Fighting.fighting_rounds(rounds, 3)
+        elif menu == 4:
+            save_count += 1
+            Save.save_score()
+        elif menu == 5:
+            leaderboard()
+        elif menu == 6:
+            user_auto_save()
+            print(f"Auto-save setting updated\n Game will be autosaved after {user_auto_save_setting} rounds")
         else:
             print("Invalid selection. Please try again.")
 
 def start_game_name():
     while True:
+        global save_count
         try:
-
             run = True
             s_adj = True
             while s_adj:
@@ -385,11 +470,6 @@ def start_game_name():
                 print('try again')
                 run = False
 
-
 if __name__ == "__main__":
     start_game_name()
-    while True:
-        try:
-            main_test()
-        except KeyboardInterrupt:
-            continue
+    main_test()
