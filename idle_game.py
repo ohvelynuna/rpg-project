@@ -332,7 +332,13 @@ def main_test():
         elif menu == 2:
             Fighting.fighting_rounds(1, 2)
         elif menu == 3:
-            Fighting.fighting_rounds(int(input("Please enter the number of rounds for infinite AFK grinding (1-inifinity)")), 3)
+          while True:
+            try:
+              rounds = int(input("Please enter the number of rounds for infinite AFK grinding (1-inifinity)"))
+              break
+            except ValueError:
+              continue
+          Fighting.fighting_rounds(rounds, 3)
         else:
             print("Invalid selection. Please try again.")
 
