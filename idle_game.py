@@ -1,6 +1,7 @@
+
 import random
 import time
-
+import os
 # Set variables
 level = 0
 hp = 0
@@ -235,7 +236,7 @@ class Player:
         self.mp += 100
         self.expcap += 100 + expcap * 0.5
         self.exp = 0
-        print("The stone crackles... and a strange robotic voice bursts from nowhere: Congratulations on leveling up!")
+        print("The stone crackles... and a strange robotic voice bursts from nowhere: \nCongratulations on leveling up!")
         time.sleep(1)
         print(f"Your current level is {self.level}. You have {self.hp} health points and {self.mp} mana points!")
         time.sleep(1)
@@ -271,27 +272,57 @@ def main_test():
         if menu == 1:
             print(f"{'Menu'.center(20, '-')} \nName: {p1.name}\nLevel: {p1.level}\nRank: {badge_dict.get(p1.level, 'GodLike - Highest Rank in Current Patch')}\nHealth: {p1.hp}\nMagic: {p1.mp}\nExperience: {p1.exp}/{p1.expcap}")
         elif menu == 2:
-            m1 = Monster(monster_names.get(random.randint(0, p1.level)), (p1.hp) + 10)
-            print("You begin searching for a monster...")
-            s = random.randint(1, 2)
-            time.sleep(s)
-            print(f"Monster found!! You discover {m1.name} Lv {p1.level}!")
-            time.sleep(2)
-            fighting = True
-            while fighting:
-                x = random.randint(p1.level, p1.level + p1.hp * 0.5 + 10)
-                print(f"You dealt {x} damage to {m1.name}!")
-                m1.hp = m1.hp - x if m1.hp - x > 0 else 0
-                time.sleep(1)
-                print(f"{m1.name} now has {m1.hp} health points remaining.")
-                time.sleep(random.randint(1, 2))
-                if m1.hp <= 0:
-                    p1.exp += p1.hp * 0.5 + random.randint(50, 100)
-                    if p1.exp >= p1.expcap:
-                        p1.levelup()
-                else:
-                    continue
-                fighting = False
+            afk = 1
+            for i in range(afk):
+                try:
+                    print("\nCtrl+C to cancel fight... \n")
+                    time.sleep(1)
+                    print(f"Round {i}/{afk} of AFK grinding", "(" + str(round(i/afk*100)) + "%)")
+                    m1 = Monster(monster_names.get(random.randint(0, p1.level) % 103), (p1.hp) + 10)
+                    print("Searching for a monster...")
+                    s = random.randint(1, 2)
+                    time.sleep(s)
+                    fullhp = m1.hp
+                    percentagehealth =  int(m1.hp/fullhp*50 // 1)
+                    print(f"Monster found — {m1.name} Lv {p1.level}! \nPreparing for battle...")
+                    time.sleep(2)
+                    print(f'{m1.name} Lv {p1.level}')
+                    print((u'█'*percentagehealth).ljust(50, ' ') + '| ' + f'{m1.hp}/{fullhp} \r')
+                    time.sleep(2)
+                    fighting = True
+                    while fighting:
+                        x = random.randint(p1.level, p1.level + p1.hp * 0.5 + 10)
+                        m1.hp = m1.hp - x if m1.hp - x > 0 else 0
+                        percentagehealth =  int(m1.hp/fullhp*50 // 1)
+                        print(f'{m1.name} Lv {p1.level}')
+                        print((u'█'*percentagehealth).ljust(50, ' ') + '| ' + f'{m1.hp}/{fullhp} \r')
+                        if x > (p1.level + p1.level + p1.hp * 0.5 + 10) // 2 * 1.5:
+                            print(f"CRITICAL STRIKE!!! You DEMOLISHED {m1.name} with {x} DAMAGE!!!!!! \nBRAVOOOOOOOOO")
+                            print(f"{m1.name} now has {m1.hp} health points remaining!!")
+                            time.sleep(random.randint(1, 2))
+                        else:
+                            print(f"You dealt {x} damage to {m1.name}!")
+                            print(f"{m1.name} now has {m1.hp} health points remaining.")
+                            time.sleep(random.randint(1, 2))
+                        if m1.hp <= 0:
+                            earned_exp = p1.hp * 0.5 + random.randint(50, 100)
+                            p1.exp += earned_exp
+                            time.sleep(1)
+                            print(f'You gained {int(earned_exp)} Exp')
+                            time.sleep(1)
+                            if p1.exp >= p1.expcap:
+                                print('A sensation of itchiness ensues as a subtle pulse courses through your veins.')
+                                time.sleep(1)
+                                p1.levelup()
+                            else:
+                                print(f'You still need {int(p1.expcap - p1.exp)} exp to level up...')
+                                time.sleep(2)
+                        else:
+                            continue
+                        fighting = False
+                except KeyboardInterrupt:
+                    print("pausing AFK grinding...")
+                    break
         elif menu == 3:
             afk = 0
             try:
@@ -303,24 +334,45 @@ def main_test():
                     print("\nAFK grinding in progress...\nCtrl+C to pause afk grinding... \n")
                     time.sleep(1)
                     print(f"Round {i}/{afk} of AFK grinding", "(" + str(round(i/afk*100)) + "%)")
-                    m1 = Monster(monster_names.get(random.randint(0, p1.level) % 49), (p1.hp) + 10)
+                    m1 = Monster(monster_names.get(random.randint(0, p1.level) % 103), (p1.hp) + 10)
                     print("Searching for a monster...")
                     s = random.randint(1, 2)
                     time.sleep(s)
-                    print(f"Monster found — {m1.name} Lv {p1.level}!")
+                    fullhp = m1.hp
+                    percentagehealth =  int(m1.hp/fullhp*50 // 1)
+                    print(f"Monster found — {m1.name} Lv {p1.level}! \nPreparing for battle...")
+                    time.sleep(2)
+                    print(f'{m1.name} Lv {p1.level}')
+                    print((u'█'*percentagehealth).ljust(50, ' ') + '| ' + f'{m1.hp}/{fullhp} \r')
                     time.sleep(2)
                     fighting = True
                     while fighting:
                         x = random.randint(p1.level, p1.level + p1.hp * 0.5 + 10)
-                        print(f"You dealt {x} damage to {m1.name}!")
                         m1.hp = m1.hp - x if m1.hp - x > 0 else 0
-                        time.sleep(1)
-                        print(f"{m1.name} now has {m1.hp} health points remaining.")
-                        time.sleep(random.randint(1, 2))
+                        percentagehealth =  int(m1.hp/fullhp*50 // 1)
+                        print(f'{m1.name} Lv {p1.level}')
+                        print((u'█'*percentagehealth).ljust(50, ' ') + '| ' + f'{m1.hp}/{fullhp} \r')
+                        if x > (p1.level + p1.level + p1.hp * 0.5 + 10) // 2 * 1.5:
+                            print(f"CRITICAL STRIKE!!! You DEMOLISHED {m1.name} with {x} DAMAGE!!!!!! \nBRAVOOOOOOOOO")
+                            print(f"{m1.name} now has {m1.hp} health points remaining!!")
+                            time.sleep(random.randint(1, 2))
+                        else:
+                            print(f"You dealt {x} damage to {m1.name}!")
+                            print(f"{m1.name} now has {m1.hp} health points remaining.")
+                            time.sleep(random.randint(1, 2))
                         if m1.hp <= 0:
-                            p1.exp += p1.hp * 0.5 + random.randint(50, 100)
+                            earned_exp = p1.hp * 0.5 + random.randint(50, 100)
+                            p1.exp += earned_exp
+                            time.sleep(1)
+                            print(f'You gained {int(earned_exp)} Exp')
+                            time.sleep(1)
                             if p1.exp >= p1.expcap:
+                                print('A sensation of itchiness ensues as a subtle pulse courses through your veins.')
+                                time.sleep(1)
                                 p1.levelup()
+                            else:
+                                print(f'You still need {int(p1.expcap - p1.exp)} exp to level up...')
+                                time.sleep(2)
                         else:
                             continue
                         fighting = False
@@ -332,23 +384,43 @@ def main_test():
         else:
             print("Invalid selection. Please try again.")
 
-pp = input("What is your name?\n > ")
-time.sleep(2)
-print("You hear a noise nearby... it seems like someone is nearby...")
-time.sleep(2)
-print("Suddenly, the corridor becomes brighter.")
-time.sleep(2)
-print("A shadow swiftly passes by and disappears before you can get a clear look.")
-time.sleep(2)
-print(f"Mysterious voice: \"Welcome, {pp}! My friend!\"")
-time.sleep(2)
-print(f"Mysterious voice: \"It's time for an adventure!!\"")
-time.sleep(2)
-print("You feel confused and rub your eyes.")
-time.sleep(1)
-print("Suddenly, a stone tablet rises in front of you... with something written on it...")
-time.sleep(2)
-p1 = Player(pp, hp, mp, level, expcap, exp)
+def start_game_name():
+    while True:
+        try:
+            run = True
+            s = 2
+            pp = input("What is your name?\n > ")
+            time.sleep(s)
+            print("You hear a noise nearby... it seems like someone is nearby...")
+            time.sleep(s)
+            print("Suddenly, the corridor becomes brighter.")
+            time.sleep(s)
+            print("A shadow swiftly passes by and disappears before you can get a clear look.")
+            time.sleep(s)
+            print(f"Mysterious voice: \"Welcome, {pp}! My friend!\"")
+            time.sleep(s)
+            print(f"Mysterious voice: \"It's time for an adventure!!\"")
+            time.sleep(s)
+            print("You feel confused and rub your eyes.")
+            time.sleep(s)
+            print("Suddenly, a stone tablet rises in front of you... with something written on it...")
+            time.sleep(s)
+            global p1
+            p1 = Player(pp, hp, mp, level, expcap, exp)
+            global run_count
+            run_count = 1
+            break
+        except KeyboardInterrupt:
+            while run:
+                print('try again')
+                run = False
+
 
 if __name__ == "__main__":
-    main_test()
+    start_game_name()
+    while True:
+        try:
+            main_test()
+        except KeyboardInterrupt:
+            while True:
+                continue
