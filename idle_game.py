@@ -1,4 +1,3 @@
-
 import random
 import time
 import pandas as pd
@@ -124,109 +123,109 @@ monster_names = {
 }
 
 badge_dict = {
-    0: "《Badge of Incompetence》",
-    1: "《Bronze of Perseverance》",
-    2: "《Silver of Firm Belief》",
-    3: "《Gold of Courage》",
-    4: "《Platinum of Excellence》",
-    5: "《Diamond of Stellar Excellence》",
-    6: "《Master of Limitlessness》",
-    7: "《Grandmaster of Radiance》",
-    8: "《Apex of Ultimate Champions》",
-    9: "《Elite》",
-    10: "《Path of Legends》",
-    11: "《Legendary》",
-    12: "《Rock of Stability》",
-    13: "《Invincible》",
-    14: "《Unrivaled》",
-    15: "《Pinnacle of Achievement》",
-    16: "《Unmatched》",
-    17: "《Infinite Charm》",
-    18: "《Transcendent》",
-    19: "《Mythical》",
-    20: "《Grandmaster of Grandmasters》",
-    21: "《Eternal Glory》",
-    22: "《Destined Sage》",
-    23: "《Transcendent Being》",
-    24: "《Supreme and Unsurpassed》",
-    25: "《Eternal King》",
-    26: "《Ruler of the Divine Realm》",
-    27: "《Immortal Supreme》",
-    28: "《Lord of the Universe》",
-    29: "《King of Legends》",
-    30: "《Legend of Gods》",
-    31: "《Representative of Gods》",
-    32: "《Invincible in the Universe》",
-    33: "《Eternal King of All Ages》",
-    34: "《Lord of the Universe》",
-    35: "《Ruler of the Stars》",
-    36: "《Supreme and Immortal》",
-    37: "《Creator of Worlds》",
-    38: "《Creator of the Universe》",
-    39: "《Endless Dominion》",
-    40: "《Master of All Things》",
-    41: "《King of the Universe》",
-    42: "《Eternal Ruler of the Universe》",
-    43: "《Supreme Being of the Universe》",
-    44: "《Infinite Supreme》",
-    45: "《Invincible in Heaven and Earth》",
-    46: "《True God of the Universe》",
-    47: "《Supreme Authority of the Universe》",
-    48: "《Heart of the Universe》",
-    49: "《Soulless in the Universe》",
-    50: "《Master of the Universe》",
-    51: "《Endless in the Universe》",
-    52: "《Circle of the Universe》",
-    53: "《Originator of the Universe》",
-    54: "《Creator God of the Universe》",
-    55: "《Terminator of the Universe》",
-    56: "《Existence of the Universe》",
-    57: "《Invincible in the Universe》",
-    58: "《Wings of the Universe》",
-    59: "《Messenger of the Universe》",
-    60: "《Incarnation of the Universe》",
-    61: "《Miracle of the Universe》",
-    62: "《Surprise of the Universe》",
-    63: "《Light of the Universe》",
-    64: "《Overlord of the Universe》",
-    65: "《Supreme Master of the Universe》",
-    66: "《Truth of the Universe》",
-    67: "《Will of the Universe》",
-    68: "《King of the Universe》",
-    69: "《Soul of the Universe》",
-    70: "《Majesty of the Universe》",
-    71: "《Order of the Universe》",
-    72: "《Reality of the Universe》",
-    73: "《Domain of the Universe》",
-    74: "《Sage of the Universe》",
-    75: "《Dancer of the Universe》",
-    76: "《Traveler of the Universe》",
-    77: "《Treasure of the Universe》",
-    78: "《Power of the Universe》",
-    79: "《Governor of the Universe》",
-    80: "《Miracle of the Universe》",
-    81: "《Wonder of the Universe》",
-    82: "《Shocking of the Universe》",
-    83: "《Legendary of the Universe》",
-    84: "《Worship of the Universe》",
-    85: "《Miracle of the Universe》",
-    86: "《Seal of the Universe》",
-    87: "《Transformation of the Universe》",
-    88: "《Endless of the Universe》",
-    89: "《Void of the Universe》",
-    90: "《King of the Universe》",
-    91: "《Flame of the Universe》",
-    92: "《Shadow of the Universe》",
-    93: "《Iron and Blood of the Universe》",
-    94: "《Abyss of the Universe》",
-    95: "《Destruction of the Universe》",
-    96: "《Darkness of the Universe》",
-    97: "《End of the Universe》",
-    98: "《Silence of the Universe》",
-    99: "《Annihilation of the Universe》",
-    100: "《Root of the Universe》",
-    101: "《Eternity of the Universe》",
-    102: "《Ruler of the Universe》"
+    0: "-Badge of Incompetence-",
+    1: "-Bronze of Perseverance-",
+    2: "-Silver of Firm Belief-",
+    3: "-Gold of Courage-",
+    4: "-Platinum of Excellence-",
+    5: "-Diamond of Stellar Excellence-",
+    6: "-Master of Limitlessness-",
+    7: "-Grandmaster of Radiance-",
+    8: "-Apex of Ultimate Champions-",
+    9: "-Elite-",
+    10: "-Path of Legends-",
+    11: "-Legendary-",
+    12: "-Rock of Stability-",
+    13: "-Invincible-",
+    14: "-Unrivaled-",
+    15: "-Pinnacle of Achievement-",
+    16: "-Unmatched-",
+    17: "-Infinite Charm-",
+    18: "-Transcendent-",
+    19: "-Mythical-",
+    20: "-Grandmaster of Grandmasters-",
+    21: "-Eternal Glory-",
+    22: "-Destined Sage-",
+    23: "-Transcendent Being-",
+    24: "-Supreme and Unsurpassed-",
+    25: "-Eternal King-",
+    26: "-Ruler of the Divine Realm-",
+    27: "-Immortal Supreme-",
+    28: "-Lord of the Universe-",
+    29: "-King of Legends-",
+    30: "-Legend of Gods-",
+    31: "-Representative of Gods-",
+    32: "-Invincible in the Universe-",
+    33: "-Eternal King of All Ages-",
+    34: "-Lord of the Universe-",
+    35: "-Ruler of the Stars-",
+    36: "-Supreme and Immortal-",
+    37: "-Creator of Worlds-",
+    38: "-Creator of the Universe-",
+    39: "-Endless Dominion-",
+    40: "-Master of All Things-",
+    41: "-King of the Universe-",
+    42: "-Eternal Ruler of the Universe-",
+    43: "-Supreme Being of the Universe-",
+    44: "-Infinite Supreme-",
+    45: "-Invincible in Heaven and Earth-",
+    46: "-True God of the Universe-",
+    47: "-Supreme Authority of the Universe-",
+    48: "-Heart of the Universe-",
+    49: "-Soulless in the Universe-",
+    50: "-Master of the Universe-",
+    51: "-Endless in the Universe-",
+    52: "-Circle of the Universe-",
+    53: "-Originator of the Universe-",
+    54: "-Creator God of the Universe-",
+    55: "-Terminator of the Universe-",
+    56: "-Existence of the Universe-",
+    57: "-Invincible in the Universe-",
+    58: "-Wings of the Universe-",
+    59: "-Messenger of the Universe-",
+    60: "-Incarnation of the Universe-",
+    61: "-Miracle of the Universe-",
+    62: "-Surprise of the Universe-",
+    63: "-Light of the Universe-",
+    64: "-Overlord of the Universe-",
+    65: "-Supreme Master of the Universe-",
+    66: "-Truth of the Universe-",
+    67: "-Will of the Universe-",
+    68: "-King of the Universe-",
+    69: "-Soul of the Universe-",
+    70: "-Majesty of the Universe-",
+    71: "-Order of the Universe-",
+    72: "-Reality of the Universe-",
+    73: "-Domain of the Universe-",
+    74: "-Sage of the Universe-",
+    75: "-Dancer of the Universe-",
+    76: "-Traveler of the Universe-",
+    77: "-Treasure of the Universe-",
+    78: "-Power of the Universe-",
+    79: "-Governor of the Universe-",
+    80: "-Miracle of the Universe-",
+    81: "-Wonder of the Universe-",
+    82: "-Shocking of the Universe-",
+    83: "-Legendary of the Universe-",
+    84: "-Worship of the Universe-",
+    85: "-Miracle of the Universe-",
+    86: "-Seal of the Universe-",
+    87: "-Transformation of the Universe-",
+    88: "-Endless of the Universe-",
+    89: "-Void of the Universe-",
+    90: "-King of the Universe-",
+    91: "-Flame of the Universe-",
+    92: "-Shadow of the Universe-",
+    93: "-Iron and Blood of the Universe-",
+    94: "-Abyss of the Universe-",
+    95: "-Destruction of the Universe-",
+    96: "-Darkness of the Universe-",
+    97: "-End of the Universe-",
+    98: "-Silence of the Universe-",
+    99: "-Annihilation of the Universe-",
+    100: "-Root of the Universe-",
+    101: "-Eternity of the Universe-",
+    102: "-Ruler of the Universe-"
 }
 
 class Player:
@@ -252,7 +251,7 @@ class Player:
         time.sleep(1)
         print("Promotion!")
         time.sleep(1)
-        print(f"You notice that the {badge_dict.get(self.level-1)} badge on your body slowly fades away.")
+        print(f"You notice that the {badge_dict[self.level-1]} badge on your body slowly fades away.")
         time.sleep(3)
         print("The stone tablet emits a noise.")
         time.sleep(3)
@@ -287,7 +286,7 @@ class Fighting:
                     time.sleep(1)
                     if choice == 3:
                         print(f"Round {i}/{afk} of AFK grinding", "(" + str(round(i/afk*100)) + "%)")
-                    m1 = Monster(monster_names.get(random.randint(0, p1.level) % 103), (p1.hp) + 10)
+                    m1 = Monster(monster_names[random.randint(0, p1.level) % 103], (p1.hp) + 10)
                     print("Searching for a monster...")
                     s = random.randint(1, 2)
                     time.sleep(s)
@@ -363,24 +362,27 @@ class Save:
             'Player_Level': [int(p1.level)],
             'Player_HP': [int(p1.hp)],
             'Player_Exp': [int(p1.exp)],
-            'Badge': [badge_dict.get(p1.level)]
+            'Badge': [badge_dict[p1.level]]
             }
         df = pd.DataFrame(data=dict_player_stat)
         if save_count == 1:
             df.to_csv("leaderboard.csv", mode='a', header = not csvfile.exists(), index = False)
             print("Player score saved")
         else:
-            df_new = pd.read_csv('leaderboard.csv')
+            df_new = pd.read_csv('leaderboard.csv').fillna('-')
             if df_new.loc[df_new.index[-1], 'Player'] == p1.name:
-                df_new.loc[df_new.index[-1], ['Player_Level', 'Player_HP', 'Player_Exp', 'Badge']] = [p1.level, p1.hp, p1.exp, badge_dict.get(p1.level)]
+                df_new.loc[df_new.index[-1], ['Player_Level', 'Player_HP', 'Player_Exp', 'Badge']] = [p1.level, p1.hp, p1.exp, badge_dict[p1.level]]
                 df_new.to_csv("leaderboard.csv", header = True, index = False)
             print("Player score saved")
 
 def leaderboard():
     if csvfile.exists():
-        df = pd.read_csv("leaderboard.csv")
-        df_display = df.sort_values(by = ['Player_Level', 'Player_Exp'], ascending = [False, False], inplace = False)
-        print(df_display.to_string(index=False))
+        df = pd.read_csv("leaderboard.csv").fillna('GodLike - Highest Rank in Current Patch')
+        if 'Player_Level' in df.columns and 'Player_Exp' in df.columns:
+            df_display = df.sort_values(by = ['Player_Level', 'Player_Exp'], ascending = [False, False], inplace = False)
+            print(df_display.to_string(index=False))
+        else:
+            print("leaderboard not found")
     else:
         print("Empty leaderboard")
 
